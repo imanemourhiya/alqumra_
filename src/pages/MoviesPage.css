@@ -1,0 +1,155 @@
+.movies-hero {
+  background: linear-gradient(to bottom, rgba(8,8,8,0) 0%, rgba(8,8,8,1) 100%),
+              url('/backgrd_film.jpg') center/cover;
+  padding: 80px 0 60px;
+  text-align: center;
+}
+.movies-hero__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2.5vw, 5rem);
+  font-weight: 700;
+  color: var(--ivory);
+  margin-bottom: 20px;
+  letter-spacing: 1.5px;
+  display: block;
+  line-height: 1;
+  padding: 20px 0;
+}
+.movies-hero__sub { 
+  font-family: 'Playfair Display', serif;
+  color: var(--text-muted); 
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-top: 16px;
+}
+
+.movies-body { padding: 40px 0 80px; }
+
+.movies-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+.tab-btn {
+   font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.tab-btn:hover { color: var(--text-primary); }
+.tab-btn--active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.movies-filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.filter-search {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.filter-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.filter-input {
+  width: 100%;
+  padding: 10px 14px 10px 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: var(--transition);
+}
+.filter-input:focus { border-color: var(--accent); }
+.filter-input::placeholder { color: var(--text-muted); }
+.filter-select {
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.83rem;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+  appearance: none;
+  padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b6f47' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.filter-select:focus { border-color: var(--accent); }
+
+.movies-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+   font-family: 'Inter', sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.movie-grid-card { cursor: pointer; }
+.mgc__poster {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+}
+.mgc__poster img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.movie-grid-card:hover .mgc__poster img { transform: scale(1.04); }
+.mgc__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8,8,8,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+}
+.movie-grid-card:hover .mgc__overlay { opacity: 1; }
+.mgc__rating {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.mgc__body { padding: 12px; }
+.mgc__title {  font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-primary); margin-bottom: 4px; }
+.mgc__meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+.mgc__genre { font-size: 0.72rem; color: var(--accent);  font-family: 'Inter', sans-serif; }
+
+.movies-empty { text-align: center; padding: 80px 0; color: var(--text-muted); }
+.italic {
+  font-style: italic;
+}

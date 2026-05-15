@@ -1,0 +1,49 @@
+/* Shared simple page + Favourites + Resell + Feedback + Cinemas */
+.simple-page { padding: 40px 0 80px; }
+.simple-page__title {  font-family: 'Inter', sans-serif; font-size: clamp(1.4rem,3vw,2rem); color: var(--ivory); margin-bottom: 36px; display: flex; align-items: center; gap: 10px; }
+
+/* Favourites */
+.fav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
+.fav-card { overflow: hidden; }
+.fav-poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; transition: transform 0.4s ease; }
+.fav-card:hover .fav-poster { transform: scale(1.04); }
+.fav-info { padding: 14px; }
+.fav-title {  font-family: 'Inter', sans-serif; font-size: 0.88rem; color: var(--text-primary); margin-bottom: 6px; }
+.fav-meta { font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; margin-bottom: 8px; }
+.fav-genres { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Resell */
+.resell-card { max-width: 600px; }
+.resell-notice { background: rgba(180,120,0,0.1); border: 1px solid rgba(200,169,126,0.4); border-radius: var(--radius-sm); padding: 14px 18px; font-size: 0.85rem; color: var(--accent); margin-bottom: 24px; }
+.resell-form { display: flex; flex-direction: column; gap: 16px; }
+
+/* Feedback */
+.feedback-card { max-width: 600px; }
+.stars-input { display: flex; gap: 6px; }
+.star-btn { font-size: 1.6rem; color: var(--border-bright); background: none; border: none; cursor: pointer; transition: color 0.15s; }
+.star-btn.active, .star-btn:hover { color: var(--accent); }
+
+/* Cinemas */
+.cinema-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.cinema-card { overflow: hidden; }
+.cinema-card__img { height: 200px; object-fit: cover; width: 100%; display: block; transition: transform 0.4s ease; }
+.cinema-card:hover .cinema-card__img { transform: scale(1.04); }
+.cinema-card__body { padding: 20px; }
+.cinema-card__name {  font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--text-primary); margin-bottom: 6px; }
+.cinema-card__addr { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+.cinema-amenities { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.amenity-chip { font-size: 0.65rem; padding: 3px 8px; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 2px; color: var(--text-muted);  font-family: 'Inter', sans-serif; }
+
+.aisle-gap {
+  width: 36px;
+  flex-shrink: 0;
+  position: relative;
+}
+.aisle-gap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(200,169,126,0.12), transparent);
+}
