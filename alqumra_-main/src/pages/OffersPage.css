@@ -1,0 +1,147 @@
+/* ===== OFFERS PAGE ===== */
+.offers-page { padding: 80px 0 60px; }
+
+.offers-header {
+  text-align: center;
+  padding: 40px 0 56px;
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+/* ── Offer card — uses accent + bg vars, adapts to theme ── */
+.offer-card {
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: var(--transition);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, var(--bg-dark)) 0%,
+    var(--bg-card) 100%
+  );
+}
+
+/* Subtle gloss overlay */
+.offer-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.offer-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-bright);
+  box-shadow: var(--shadow-md), 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.offer-card--claimed {
+  opacity: 0.6;
+  filter: grayscale(0.3);
+}
+
+/* Big faded discount number in corner */
+.offer-card__discount {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  position: absolute;
+  top: 16px; right: 22px;
+  color: var(--accent);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.offer-card__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.offer-card__icon-wrap {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.offer-card__title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+}
+.offer-card__desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.offer-card__expires {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.offer-card__expires svg { color: var(--accent); }
+.countdown {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+.offer-claimed {
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Loyalty banner */
+.offers-loyalty {
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-surface));
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-lg);
+  padding: 32px 40px;
+  margin-top: 20px;
+}
+.offers-loyalty__content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.loyalty-star {
+  font-size: 2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.offers-loyalty__content h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+.offers-loyalty__content p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .offers-loyalty__content { flex-direction: column; text-align: center; }
+  .offers-grid { grid-template-columns: 1fr; }
+}
