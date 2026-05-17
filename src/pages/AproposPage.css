@@ -1,0 +1,160 @@
+.about { min-height: 100vh; background: var(--bg-void); padding-bottom: 60px; }
+
+/* Hero */
+.about-hero {
+  position: relative;
+  height: 340px;
+  background: linear-gradient(135deg, #0a0808 0%, #2c1a0a 50%, #0a0808 100%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.about-hero::before {
+  content: '◈';
+  position: absolute;
+  font-size: 28rem;
+  color: rgba(200,169,126,0.03);
+  right: -4rem;
+  top: -6rem;
+  pointer-events: none;
+}
+.about-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(200,169,126,0.08) 0%, transparent 70%);
+}
+.about-hero__content { position: relative; z-index: 1; text-align: center; width: 100%; }
+.about-hero__sub {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+  font-family: 'Cinzel', serif;
+  margin-bottom: 12px;
+}
+.about-hero__title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--ivory);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.about-hero__tagline {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--beige);
+  opacity: 0.8;
+}
+
+/* Stats */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 40px 0;
+}
+@media (min-width: 600px) { .about-stats { grid-template-columns: repeat(4, 1fr); } }
+
+.about-stat {
+  padding: 24px 16px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.about-stat__icon { font-size: 1.4rem; color: var(--accent); margin-bottom: 10px; }
+.about-stat__value { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 700; color: var(--ivory); margin-bottom: 4px; }
+.about-stat__label { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+/* Sections */
+.about-section { margin-bottom: 56px; }
+.about-section__title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--ivory);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.about-section__text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  max-width: 760px;
+}
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item {
+  display: grid;
+  grid-template-columns: 60px 20px 1fr;
+  gap: 0 16px;
+  align-items: start;
+  padding-bottom: 28px;
+  position: relative;
+}
+.timeline-year {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: var(--accent);
+  padding-top: 2px;
+  text-align: right;
+}
+.timeline-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-void);
+  box-shadow: 0 0 8px rgba(200,169,126,0.4);
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+}
+.timeline-item:not(:last-child) .timeline-dot::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: calc(100% + 16px);
+  background: var(--border);
+}
+.timeline-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding-top: 2px;
+}
+
+/* Team */
+.about-team {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (min-width: 600px) { .about-team { grid-template-columns: repeat(4, 1fr); } }
+
+.team-card { padding: 24px 16px; text-align: center; }
+.team-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+.team-name { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.team-role { font-size: 0.78rem; color: var(--text-muted); }
+
+/* Contact */
+.about-contact { display: flex; flex-direction: column; gap: 12px; }
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.contact-item svg { color: var(--accent); font-size: 1.1rem; flex-shrink: 0; }

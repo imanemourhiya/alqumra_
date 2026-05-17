@@ -1,0 +1,31 @@
+.checkout { padding: 40px 0 80px; }
+.checkout__inner { max-width: 1000px; }
+.checkout__title {  font-family: 'Inter', sans-serif; font-size: 2rem; color: var(--ivory); margin-bottom: 36px; }
+.checkout__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: flex-start; }
+.checkout__section-title {  font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.checkout__summary { padding: 28px; }
+.checkout__payment { padding: 28px; }
+.checkout__movie { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+.checkout__poster { width: 60px; border-radius: 4px; flex-shrink: 0; }
+.checkout__movie-title {  font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 4px; }
+.checkout__movie-meta { font-size: 0.78rem; color: var(--text-muted); }
+.checkout__divider { height: 1px; background: var(--border); margin: 16px 0; }
+.checkout__label {  font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.checkout__seat-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.seat-chip { font-size: 0.75rem; }
+.promo-row { display: flex; align-items: center; gap: 10px; }
+.promo-icon { color: var(--accent); flex-shrink: 0; }
+.promo-input { flex: 1; background: var(--bg-dark); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 12px; color: var(--text-primary); font-family: inherit; font-size: 0.85rem; outline: none; }
+.promo-input:focus { border-color: var(--accent); }
+.promo-success { color: #60bb60; font-size: 0.82rem; display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.checkout__totals { display: flex; flex-direction: column; gap: 10px; }
+.total-row { display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-secondary); }
+.total-row--discount { color: #60bb60; }
+.total-row--final {  font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--accent); padding-top: 8px; border-top: 1px solid var(--border-bright); margin-top: 4px; }
+.mock-card-brand { font-size: 0.82rem; color: var(--text-muted); background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 20px; }
+.payment-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.payment-mock { display: flex; flex-direction: column; gap: 16px; }
+.payment-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+.pay-btn { width: 100%; justify-content: center; padding: 15px; font-size: 0.9rem; margin-top: 24px; }
+.pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+@media (max-width: 768px) { .checkout__grid { grid-template-columns: 1fr; } }

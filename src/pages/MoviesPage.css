@@ -1,0 +1,202 @@
+.movies-page {
+  min-height: 100vh;
+  background: var(--bg-void);
+  padding-bottom: 40px;
+}
+
+/* Top bar */
+.mp-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 16px;
+}
+.mp-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mp-topbar-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  color: var(--ivory);
+  letter-spacing: 0.05em;
+}
+.mp-search-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+.mp-search-btn:hover { color: var(--accent); }
+
+/* Search bar open */
+.mp-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: 30px;
+  padding: 8px 16px;
+}
+.mp-search-icon { color: var(--text-muted); font-size: 1rem; flex-shrink: 0; }
+.mp-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+.mp-search-input::placeholder { color: var(--text-muted); }
+.mp-search-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 2px;
+}
+
+/* Chips row */
+.mp-chips-wrap {
+  overflow-x: auto;
+  padding: 10px 16px 0;
+  scrollbar-width: none;
+}
+.mp-chips-wrap::-webkit-scrollbar { display: none; }
+.mp-chips {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+}
+.mp-chip {
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.mp-chip--sm {
+  padding: 5px 12px;
+  font-size: 0.78rem;
+}
+.mp-chip:hover { border-color: var(--accent); color: var(--accent); }
+.mp-chip--active {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+/* Count */
+.mp-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 8px 16px 0;
+}
+
+/* Empty */
+.mp-empty {
+  padding: 60px 16px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* Grid — 3 colonnes comme HiTV */
+.mp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 12px 16px;
+}
+
+.mp-card { cursor: pointer; }
+.mp-card a { text-decoration: none; }
+
+.mp-card__poster {
+  position: relative;
+  aspect-ratio: 2/3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+.mp-card__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+.mp-card:hover .mp-card__poster img { transform: scale(1.04); }
+
+.mp-card__rating {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(0,0,0,0.65);
+  padding: 2px 6px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+.mp-card__badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #111;
+  background: var(--accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.mp-card__info { padding: 6px 2px 0; }
+.mp-card__title {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+.mp-card__meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 600px) {
+  .mp-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 900px) {
+  .mp-grid { grid-template-columns: repeat(5, 1fr); gap: 14px; padding: 16px 24px; }
+  .mp-topbar { padding: 16px 24px; }
+  .mp-chips-wrap { padding: 12px 24px 0; }
+}
+@media (min-width: 1200px) {
+  .mp-grid { grid-template-columns: repeat(6, 1fr); }
+}
