@@ -1,12 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, FreeMode, Navigation } from 'swiper/modules';
+import { Autoplay, FreeMode } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/effect-fade';
 import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
 import { FiPlay, FiCalendar, FiStar, FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { MOVIES } from '../data/mockData';
 import { useLang } from '../context/LanguageContext';
@@ -51,125 +49,103 @@ function MovieCard({ movie, index = 0 }) {
 export default function HomePage() {
   const [activeHero, setActiveHero] = useState(0);
   const { t } = useLang();
-  const heroSwiperRef = useRef(null);
-  const nowPrevRef = useRef(null);
-  const nowNextRef = useRef(null);
+
+  useEffect(() => {
+    const id = setInterval(() => setActiveHero(i => (i + 1) % HERO_MOVIES.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  const movie = HERO_MOVIES[activeHero];
 
   return (
     <div className="home page-enter">
 
-      {/* ====== HERO ====== */}
+      {/* ====== HERO CAROUSEL ====== */}
       <section className="hero">
-        <Swiper
-          modules={[Autoplay, EffectFade]}
-          effect="fade"
-          fadeEffect={{ crossFade: true }}   /* ← KEY FIX: prevents slide stacking */
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          loop
-          onSwiper={swiper => { heroSwiperRef.current = swiper; }}
-          onSlideChange={s => setActiveHero(s.realIndex)}
-          className="hero__swiper"
-        >
-          {HERO_MOVIES.map(movie => (
-            <SwiperSlide key={movie.id}>
-              <div className="hero__slide">
-                <div
-                  className="hero__bg"
-                  style={{ backgroundImage: `url(${movie.backdrop})` }}
-                />
-                <div className="hero__gradient" />
-                <div className="hero__content container">
-                  {/* AnimatePresence + key on activeHero prevents ghost text overlap */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeHero}
-                      initial={{ opacity: 0, y: 32 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -16 }}
-                      transition={{ duration: 0.55 }}
-                      className="hero__text"
-                    >
-                      <div className="hero__label">
-                        <span className="ornament-dot" />
-                        {t('nowShowing')}
-                      </div>
-                      <h1 className="hero__title">{HERO_MOVIES[activeHero]?.title}</h1>
-                      <div className="hero__meta">
-                        <span><FiStar style={{color:'var(--accent)'}} /> {HERO_MOVIES[activeHero]?.rating}</span>
-                        <span>{HERO_MOVIES[activeHero]?.duration} {t('min')}</span>
-                        <span>{HERO_MOVIES[activeHero]?.genre.join(' · ')}</span>
-                      </div>
-                      <p className="hero__synopsis">{HERO_MOVIES[activeHero]?.synopsis.slice(0, 180)}…</p>
-                      <div className="hero__actions">
-                        <Link to={`/movies/${HERO_MOVIES[activeHero]?.id}`} className="btn btn-primary">
-                          <FiCalendar /> {t('bookTickets')}
-                        </Link>
-                        <Link to={`/movies/${HERO_MOVIES[activeHero]?.id}`} className="btn btn-outline">
-                          <FiPlay /> {t('trailer')}
-                        </Link>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div className="hero__carousel">
+          {/* Background */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeHero}
+              className="hero__bg"
+              style={{ backgroundImage: `url(${movie?.backdrop})` }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          </AnimatePresence>
+          <div className="hero__gradient" />
 
-        {/* Poster strip with nav arrows */}
-        <div className="hero__strip container">
-          <button
-            className="hero__strip-arrow hero__strip-arrow--prev"
-            onClick={() => heroSwiperRef.current?.slidePrev()}
-            aria-label="Previous"
-          >
+          {/* Arrows */}
+          <button className="hero__arrow hero__arrow--prev" onClick={() => setActiveHero(i => (i - 1 + HERO_MOVIES.length) % HERO_MOVIES.length)}>
             <FiChevronLeft />
           </button>
-
-          {HERO_MOVIES.map((m, i) => (
-            <div
-              key={m.id}
-              className={`strip-poster ${i === activeHero ? 'strip-poster--active' : ''}`}
-              style={{ backgroundImage: `url(${m.poster})` }}
-              onClick={() => heroSwiperRef.current?.slideTo(i)}
-            />
-          ))}
-
-          <button
-            className="hero__strip-arrow hero__strip-arrow--next"
-            onClick={() => heroSwiperRef.current?.slideNext()}
-            aria-label="Next"
-          >
+          <button className="hero__arrow hero__arrow--next" onClick={() => setActiveHero(i => (i + 1) % HERO_MOVIES.length)}>
             <FiChevronRight />
           </button>
+
+          {/* Content */}
+          <div className="hero__content">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeHero}
+                className="hero__text"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="hero__label">
+                  <span className="ornament-dot" />
+                  {t('nowShowing')}
+                </div>
+                <h1 className="hero__title">{movie?.title}</h1>
+                <div className="hero__meta">
+                  <span><FiStar style={{ color: 'var(--accent)' }} /> {movie?.rating}</span>
+                  <span>{movie?.duration} {t('min')}</span>
+                  <span>{movie?.genre.join(' · ')}</span>
+                </div>
+                <p className="hero__synopsis">{movie?.synopsis?.slice(0, 180)}…</p>
+                <div className="hero__actions">
+                  <Link to={`/movies/${movie?.id}`} className="btn btn-primary">
+                    <FiCalendar /> {t('bookTickets')}
+                  </Link>
+                  <Link to={`/movies/${movie?.id}`} className="btn btn-outline">
+                    <FiPlay /> {t('trailer')}
+                  </Link>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots */}
+          <div className="hero__dots">
+            {HERO_MOVIES.map((_, i) => (
+              <button
+                key={i}
+                className={`hero__dot ${i === activeHero ? 'hero__dot--active' : ''}`}
+                onClick={() => setActiveHero(i)}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ====== NOW SHOWING — Auto-scroll Swiper with nav buttons ====== */}
+      {/* ====== NOW SHOWING ====== */}
       <section className="home-section container">
         <div className="section-header">
           <h2 className="section-title">{t('nowShowing')}</h2>
-          <div className="section-header__right">
-            <div className="now-nav">
-              <button ref={nowPrevRef} className="now-nav__btn" aria-label="Previous"><FiChevronLeft /></button>
-              <button ref={nowNextRef} className="now-nav__btn" aria-label="Next"><FiChevronRight /></button>
-            </div>
-            <Link to="/movies" className="section-more">{t('allFilms')} <FiChevronRight /></Link>
-          </div>
+          <Link to="/movies" className="section-more">{t('allFilms')} <FiChevronRight /></Link>
         </div>
         <div className="now-carousel">
           <Swiper
-            modules={[Autoplay, FreeMode, Navigation]}
+            modules={[Autoplay, FreeMode]}
             slidesPerView="auto"
             spaceBetween={20}
             freeMode={{ enabled: true, momentum: true }}
             autoplay={{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true }}
             loop={NOW_SHOWING.length > 4}
-            navigation={{ prevEl: nowPrevRef.current, nextEl: nowNextRef.current }}
-            onBeforeInit={swiper => {
-              swiper.params.navigation.prevEl = nowPrevRef.current;
-              swiper.params.navigation.nextEl = nowNextRef.current;
-            }}
             className="now-swiper"
           >
             {NOW_SHOWING.map((m, i) => (
@@ -201,7 +177,7 @@ export default function HomePage() {
               <div className="coming-card__content">
                 <h3 className="coming-card__title">{m.title}</h3>
                 <p className="coming-card__year">{m.year} · {m.genre[0]}</p>
-                <Link to={`/movies/${m.id}`} className="btn btn-outline" style={{marginTop:'12px',fontSize:'0.72rem',padding:'8px 18px'}}>
+                <Link to={`/movies/${m.id}`} className="btn btn-outline" style={{ marginTop: '12px', fontSize: '0.72rem', padding: '8px 18px' }}>
                   {t('learnMore')}
                 </Link>
               </div>

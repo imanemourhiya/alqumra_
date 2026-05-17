@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { generateSeats, SESSIONS, MOVIES } from '../data/mockData';
+import { useLang } from '../context/LanguageContext';
 import './SeatMapPage.css';
 
 function Seat({ status, isSelected, isVip, onClick, seatId }) {
@@ -42,6 +43,7 @@ function Seat({ status, isSelected, isVip, onClick, seatId }) {
 export default function SeatMapPage() {
   const { sessionId } = useParams();
   const navigate = useNavigate();
+  const { t } = useLang();
   const session = SESSIONS.find(s => s.id === Number(sessionId));
   const movie = session ? MOVIES.find(m => m.id === session.movieId) : null;
   const [seats, setSeats] = useState(generateSeats(sessionId));
@@ -49,7 +51,7 @@ export default function SeatMapPage() {
 
   if (!session) return (
     <div style={{ padding: '120px 24px', textAlign: 'center', color: 'var(--text-muted)' }}>
-      <h2>Session not found.</h2>
+      <h2>{t('sessionNotFound')}</h2>
     </div>
   );
 
@@ -78,14 +80,13 @@ export default function SeatMapPage() {
         </div>
 
         <div className="auditorium">
-          {/* Screen + curtains */}
           <div className="screen-stage">
             <div className="curtain curtain--left">
               <div className="curtain-fold" /><div className="curtain-fold" /><div className="curtain-fold" />
             </div>
             <div className="screen-frame">
               <div className="screen-inner">
-                <span className="screen-text">NOW SHOWING</span>
+                <span className="screen-text">{t('nowShowingScreen')}</span>
               </div>
             </div>
             <div className="curtain curtain--right">
@@ -95,41 +96,40 @@ export default function SeatMapPage() {
 
           <div className="stage-edge" />
 
-          {/* Seats with perspective */}
           <div className="hall-perspective">
             <div className="seat-grid">
               {rows.map((row, rowIdx) => {
-  const leftSeats  = seats.filter(s => s.row === row && s.block === 'left');
-  const rightSeats = seats.filter(s => s.row === row && s.block === 'right');
-  const scale = 0.72 + (rowIdx / rows.length) * 0.28;
-  const opacity = 0.75 + (rowIdx / rows.length) * 0.25;
-  const renderSeat = (seat) => (
-    <motion.div
-      key={seat.id}
-      className="seat-wrapper"
-      whileHover={seat.status !== 'occupied' ? { scale: 1.18, y: -4 } : {}}
-      whileTap={seat.status !== 'occupied' ? { scale: 0.9 } : {}}
-      title={`${seat.id} — ${seat.price} MAD`}
-    >
-      <Seat
-        status={seat.status}
-        isSelected={selected.includes(seat.id)}
-        isVip={seat.type === 'vip'}
-        onClick={() => toggle(seat)}
-        seatId={`${seat.id} · ${seat.price} MAD`}
-      />
-    </motion.div>
-  );
-  return (
-    <div key={row} className="seat-row" style={{ transform: `scaleX(${scale})`, opacity }}>
-      <span className="row-label">{row}</span>
-      <div className="row-seats">{leftSeats.map(renderSeat)}</div>
-      <div className="aisle-gap" />
-      <div className="row-seats">{rightSeats.map(renderSeat)}</div>
-      <span className="row-label">{row}</span>
-    </div>
-  );
-})}
+                const leftSeats  = seats.filter(s => s.row === row && s.block === 'left');
+                const rightSeats = seats.filter(s => s.row === row && s.block === 'right');
+                const scale = 0.72 + (rowIdx / rows.length) * 0.28;
+                const opacity = 0.75 + (rowIdx / rows.length) * 0.25;
+                const renderSeat = (seat) => (
+                  <motion.div
+                    key={seat.id}
+                    className="seat-wrapper"
+                    whileHover={seat.status !== 'occupied' ? { scale: 1.18, y: -4 } : {}}
+                    whileTap={seat.status !== 'occupied' ? { scale: 0.9 } : {}}
+                    title={`${seat.id} — ${seat.price} MAD`}
+                  >
+                    <Seat
+                      status={seat.status}
+                      isSelected={selected.includes(seat.id)}
+                      isVip={seat.type === 'vip'}
+                      onClick={() => toggle(seat)}
+                      seatId={`${seat.id} · ${seat.price} MAD`}
+                    />
+                  </motion.div>
+                );
+                return (
+                  <div key={row} className="seat-row" style={{ transform: `scaleX(${scale})`, opacity }}>
+                    <span className="row-label">{row}</span>
+                    <div className="row-seats">{leftSeats.map(renderSeat)}</div>
+                    <div className="aisle-gap" />
+                    <div className="row-seats">{rightSeats.map(renderSeat)}</div>
+                    <span className="row-label">{row}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -139,17 +139,17 @@ export default function SeatMapPage() {
         {/* Legend */}
         <div className="seat-legend container">
           {[
-            { top: '#c02020', base: '#9b1c1c', label: 'Available' },
-            { top: '#5e5f62', base: '#5b5c61', label: 'Selected' },
-            { top: '#4a2a2a', base: '#3a2020', label: 'Occupied' },
-            { top: '#b02020', base: '#8b1a1a', label: 'VIP' },
+            { top: '#c02020', base: '#9b1c1c', labelKey: 'available' },
+            { top: '#5e5f62', base: '#5b5c61', labelKey: 'selected' },
+            { top: '#4a2a2a', base: '#3a2020', labelKey: 'occupied' },
+            { top: '#b02020', base: '#8b1a1a', labelKey: 'vip' },
           ].map(l => (
-            <div key={l.label} className="legend-item">
+            <div key={l.labelKey} className="legend-item">
               <svg viewBox="0 0 40 38" width="24" height="22">
                 <ellipse cx="20" cy="13" rx="17" ry="13" fill={l.top} />
                 <rect x="3" y="22" width="34" height="13" rx="6" fill={l.base} />
               </svg>
-              <span>{l.label}</span>
+              <span>{t(l.labelKey)}</span>
             </div>
           ))}
         </div>
@@ -163,11 +163,11 @@ export default function SeatMapPage() {
           <div className="ss__info">
             {selected.length > 0 ? (
               <>
-                <p className="ss__seats">Selected: <strong>{selected.join(', ')}</strong></p>
+                <p className="ss__seats">{t('selected')}: <strong>{selected.join(', ')}</strong></p>
                 <p className="ss__total">Total: <span className="ss__price">{total} MAD</span></p>
               </>
             ) : (
-              <p className="ss__hint">Click a seat to select it</p>
+              <p className="ss__hint">{t('selectSeatHint')}</p>
             )}
           </div>
           <button
@@ -176,7 +176,7 @@ export default function SeatMapPage() {
             onClick={handleCheckout}
             style={{ padding: '14px 32px' }}
           >
-            Proceed to Checkout ({selected.length} seat{selected.length !== 1 ? 's' : ''})
+            {t('proceedCheckout')} ({selected.length} {selected.length !== 1 ? t('seats') : t('seat')})
           </button>
         </motion.div>
       </div>

@@ -3,23 +3,21 @@
 /* Hero */
 .hero {
   position: relative;
+  overflow: hidden;
+}
+.hero__carousel {
+  position: relative;
+  width: 100%;
   height: 90vh;
   min-height: 560px;
   overflow: hidden;
 }
-.hero__swiper { width: 100%; height: 100%; }
-.hero__slide { position: relative; width: 100%; height: 90vh; min-height: 560px; }
 .hero__bg {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  transform: scale(1.05);
-  animation: slow-zoom 8s ease-in-out forwards;
-}
-@keyframes slow-zoom {
-  from { transform: scale(1.05); }
-  to   { transform: scale(1); }
+  will-change: opacity;
 }
 .hero__gradient {
   position: absolute;
@@ -31,32 +29,43 @@
     rgba(8,8,8,0.1) 100%
   ),
   linear-gradient(to top, rgba(8,8,8,1) 0%, transparent 50%);
+  z-index: 1;
 }
+.hero__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(30,30,30,0.7);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  backdrop-filter: blur(4px);
+}
+.hero__arrow:hover { background: rgba(80,80,80,0.9); }
+.hero__arrow--prev { left: 20px; }
+.hero__arrow--next { right: 20px; }
 .hero__content {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
-  /* z-index ensures content sits above bg/gradient */
-  z-index: 2;
+  z-index: 5;
+  padding: 0 48px;
 }
-
-/* FIX: each slide must be position:absolute so they stack via opacity only */
-/* Swiper fade stacking fix */
-.hero__swiper .swiper-slide {
-  pointer-events: none;
-}
-.hero__swiper .swiper-slide-active {
-  pointer-events: auto;
-}
-
 .hero__text { max-width: 600px; }
-
 .hero__label {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Cinzel', serif;
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -69,9 +78,8 @@
   background: var(--accent);
   box-shadow: 0 0 8px var(--accent);
 }
-
 .hero__title {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Cinzel', serif;
   font-size: clamp(2rem, 5vw, 3.8rem);
   font-weight: 700;
   color: var(--ivory);
@@ -79,7 +87,6 @@
   text-shadow: 0 2px 20px rgba(0,0,0,0.8);
   margin-bottom: 16px;
 }
-
 .hero__meta {
   display: flex;
   align-items: center;
@@ -89,48 +96,43 @@
   margin-bottom: 20px;
 }
 .hero__meta span { display: flex; align-items: center; gap: 5px; }
-
 .hero__synopsis {
-  font-family: 'Inter', sans-serif;
+  font-family: 'EB Garamond', serif;
   font-size: 1.05rem;
   color: var(--beige);
   line-height: 1.7;
   margin-bottom: 28px;
   max-width: 500px;
 }
-
 .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-/* Poster strip */
-.hero__strip {
+.hero__dots {
   position: absolute;
   bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 24px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   z-index: 10;
 }
-
-/* Strip nav arrows */
-.hero__strip-arrow {
-  width: 32px; height: 32px;
+.hero__dot {
+  width: 7px; height: 7px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: var(--ivory);
-  font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.35);
+  border: none;
   cursor: pointer;
-  transition: var(--transition);
-  backdrop-filter: blur(6px);
-  flex-shrink: 0;
+  transition: all 0.2s;
+  padding: 0;
 }
-.hero__strip-arrow:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--bg-void);
+.hero__dot--active {
+  background: #fff;
+  width: 22px;
+  border-radius: 4px;
+}
+@media (max-width: 768px) {
+  .hero__carousel { height: 75vh; }
+  .hero__content { padding: 0 20px; }
+  .hero__arrow--prev { left: 8px; }
+  .hero__arrow--next { right: 8px; }
 }
 
 .strip-poster {

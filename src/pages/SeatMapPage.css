@@ -188,6 +188,13 @@
 .ss__price { color: var(--accent); font-size: 1.1rem; font-weight: 700; margin-left: 6px; }
 .ss__hint { color: var(--text-muted); font-size: 0.85rem; }
 
+.auditorium,
+.seat-grid,
+.seat-row,
+.row-seats {
+  direction: ltr;
+}
+
 @media (max-width: 600px) {
   .curtain { width: 40px; }
   .screen-text { font-size: 1.1rem; }

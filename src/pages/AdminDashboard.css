@@ -43,7 +43,7 @@
   object-fit: cover;
   border: 2px solid var(--accent);
 }
-.admin-user-name { font-size: 0.78rem; color: var(--text-primary); font-family: 'Cinzel', serif; }
+.admin-user-name { font-size: 0.78rem; color: var(--text-primary); font-family: 'Inter', sans-serif; }
 .role-badge-admin { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 0.6rem; font-family:'Cinzel',serif; background: #3a1a5a; color: #c48aff; border: 1px solid #6a3aaa; text-transform: uppercase; letter-spacing: 0.1em; }
 
 .staff-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 8px; flex: 1; }
@@ -56,7 +56,7 @@
   border: none;
   background: transparent;
   color: var(--text-muted);
-  font-family: 'Cinzel', serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -75,7 +75,7 @@
   overflow-y: auto;
 }
 .staff-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.3rem;
   color: var(--accent);
   letter-spacing: 0.1em;
@@ -112,7 +112,7 @@
   pointer-events: none;
 }
 .asc-icon { font-size: 1.3rem; color: var(--accent); }
-.asc-value { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--ivory); font-weight: 700; }
+.asc-value { font-family: 'Inter', sans-serif; font-size: 1.5rem; color: var(--ivory); font-weight: 700; }
 .asc-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 .asc-trend { font-size: 0.72rem; color: #4adf90; margin-top: 2px; }
 
@@ -124,7 +124,7 @@
   margin-bottom: 28px;
 }
 .admin-chart-card { padding: 20px; }
-.chart-title { font-family: 'Cinzel', serif; font-size: 0.78rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.chart-title { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
 
 /* Tables */
 .staff-table-wrap { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border); }
@@ -132,7 +132,7 @@
 .staff-table th {
   background: var(--bg-dark);
   padding: 12px 16px;
-  font-family: 'Cinzel', serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -161,9 +161,9 @@
   flex-direction: column;
   gap: 8px;
 }
-.schedule-day-label { font-family: 'Cinzel', serif; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 4px; }
+.schedule-day-label { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 4px; }
 .schedule-session { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.ss-time { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--text-secondary); }
+.ss-time { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: var(--text-secondary); }
 .ss-title { font-size: 0.72rem; color: var(--text-muted); flex: 1; }
 
 /* Modal */
@@ -189,7 +189,41 @@
   justify-content: space-between;
   margin-bottom: 20px;
 }
-.modal-title { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--accent); letter-spacing: 0.1em; }
+
+.admin-info-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: rgba(200,169,126,0.06);
+  border: 1px solid rgba(200,169,126,0.15);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 4px;
+}
+.admin-info-btn:hover { background: rgba(200,169,126,0.12); }
+
+.admin-info-panel {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(200,169,126,0.1);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.aip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+}
+.aip-row span:first-child { color: var(--text-muted); }
+.aip-row span:last-child { color: var(--text-secondary); font-size: 0.75rem; }
+.modal-title { font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--accent); letter-spacing: 0.1em; }
 .modal-form { display: flex; flex-direction: column; gap: 14px; }
 .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 

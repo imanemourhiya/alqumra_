@@ -1,47 +1,73 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiCamera, FiUsers, FiCalendar, FiLogOut } from 'react-icons/fi';
+import { FiCamera, FiUsers, FiCalendar, FiLogOut, FiMapPin, FiClock } from 'react-icons/fi';
 import { SESSIONS, MOVIES, CINEMAS } from '../data/mockData';
+import { useLang } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 import './StaffDashboard.css';
 
+const STAFF_INFO = {
+  cinema: 'Al-Qumra Casablanca',
+  shift: '14:00 — 22:00',
+  id: 'EMP-0021',
+  since: 'Jan 2024',
+};
+
 export default function StaffDashboard() {
+  const { t, lang } = useLang();
+  const { user } = useAuth();
   const [tab, setTab] = useState('sessions');
 
   return (
     <div className="staff-page">
-      {/* Sidebar */}
       <aside className="staff-sidebar">
         <div className="staff-brand">
           <span className="logo-icon">◈</span>
-          <span className="logo-text">STAFF PORTAL</span>
+          <span className="logo-text">{t('staffPortal')}</span>
         </div>
+
+        {user && (
+          <div className="staff-profile">
+            <div className="sp-avatar">{user.name?.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()}</div>
+            <div className="sp-name">{user.name}</div>
+            <div className="sp-role">{lang === 'ar' ? 'موظف' : 'Staff'}</div>
+            <div className="sp-divider" />
+            <div className="sp-row"><FiMapPin size={11}/> {STAFF_INFO.cinema}</div>
+            <div className="sp-row"><FiClock size={11}/> {STAFF_INFO.shift}</div>
+            <div className="sp-row" style={{justifyContent:'space-between'}}>
+              <span style={{color:'var(--text-muted)',fontSize:'0.72rem'}}>ID</span>
+              <span style={{color:'var(--accent)',fontSize:'0.72rem'}}>{STAFF_INFO.id}</span>
+            </div>
+          </div>
+        )}
+
         <nav className="staff-nav">
           <button className={`staff-nav-btn ${tab==='sessions'?'active':''}`} onClick={()=>setTab('sessions')}>
-            <FiCalendar /> Today's Sessions
+            <FiCalendar /> {t('todaysSessions')}
           </button>
           <button className={`staff-nav-btn ${tab==='scanner'?'active':''}`} onClick={()=>setTab('scanner')}>
-            <FiCamera /> QR Scanner
+            <FiCamera /> {t('qrScanner')}
           </button>
           <button className={`staff-nav-btn ${tab==='walkin'?'active':''}`} onClick={()=>setTab('walkin')}>
-            <FiUsers /> Walk-in Booking
+            <FiUsers /> {t('walkInBooking')}
           </button>
         </nav>
         <Link to="/" className="staff-nav-btn" style={{marginTop:'auto',color:'var(--text-muted)'}}>
-          <FiLogOut /> Exit to Site
+          <FiLogOut /> {t('exitToSite')}
         </Link>
       </aside>
 
-      {/* Main */}
       <main className="staff-main">
         {tab === 'sessions' && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} className="staff-content">
-            <h2 className="staff-title">Today's Sessions</h2>
+            <h2 className="staff-title">{t('todaysSessions')}</h2>
             <div className="staff-table-wrap">
               <table className="staff-table">
                 <thead>
                   <tr>
-                    <th>Film</th><th>Cinema</th><th>Hall</th><th>Time</th><th>Format</th><th>Price</th>
+                    <th>{t('film')}</th><th>{t('cinema')}</th><th>{t('hall')}</th>
+                    <th>{t('time')}</th><th>{t('format')}</th><th>{t('price')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,18 +93,18 @@ export default function StaffDashboard() {
 
         {tab === 'scanner' && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} className="staff-content">
-            <h2 className="staff-title">QR Code Scanner</h2>
+            <h2 className="staff-title">{t('qrScanner')}</h2>
             <div className="qr-scanner-ui">
               <div className="qr-viewfinder">
                 <div className="qr-corner tl" /><div className="qr-corner tr" />
                 <div className="qr-corner bl" /><div className="qr-corner br" />
                 <div className="qr-scan-line" />
-                <p className="qr-label">Point camera at ticket QR code</p>
+                <p className="qr-label">{t('pointCamera')}</p>
               </div>
-              <p className="qr-note">In production, this would activate your device camera for real-time ticket validation.</p>
+              <p className="qr-note">{t('qrNote')}</p>
               <div className="qr-manual">
-                <input className="form-input" placeholder="Or type booking ID manually…" style={{flex:1}} />
-                <button className="btn btn-primary">Validate</button>
+                <input className="form-input" placeholder={t('typeBookingId')} style={{flex:1}} />
+                <button className="btn btn-primary">{t('validate')}</button>
               </div>
             </div>
           </motion.div>
@@ -86,9 +112,10 @@ export default function StaffDashboard() {
 
         {tab === 'walkin' && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} className="staff-content">
-            <h2 className="staff-title">Walk-in Booking</h2>
+            <h2 className="staff-title">{t('walkInBooking')}</h2>
             <div className="walkin-form card">
-              <div className="form-group"><label className="form-label">Session</label>
+              <div className="form-group">
+                <label className="form-label">{t('session')}</label>
                 <select className="filter-select" style={{width:'100%',paddingRight:14}}>
                   {SESSIONS.map(s => {
                     const movie = MOVIES.find(m=>m.id===s.movieId);
@@ -96,15 +123,28 @@ export default function StaffDashboard() {
                   })}
                 </select>
               </div>
-              <div className="form-group"><label className="form-label">Customer Name</label><input className="form-input" placeholder="Full name" /></div>
-              <div className="form-group"><label className="form-label">Seat</label><input className="form-input" placeholder="e.g. E5" /></div>
-              <div className="form-group"><label className="form-label">Payment Method</label>
+              <div className="form-group">
+                <label className="form-label">{t('customerName')}</label>
+                <input className="form-input" placeholder={t('fullName')} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">{t('seatLabel')}</label>
+                <input className="form-input" placeholder="e.g. E5" />
+              </div>
+              <div className="form-group">
+                <label className="form-label">{t('paymentMethod')}</label>
                 <div style={{display:'flex',gap:12}}>
-                  <label style={{cursor:'pointer',color:'var(--text-secondary)',fontSize:'0.88rem'}}><input type="radio" name="pay" defaultChecked style={{marginRight:6}}/>Cash</label>
-                  <label style={{cursor:'pointer',color:'var(--text-secondary)',fontSize:'0.88rem'}}><input type="radio" name="pay" style={{marginRight:6}}/>Card (TPE)</label>
+                  <label style={{cursor:'pointer',color:'var(--text-secondary)',fontSize:'0.88rem'}}>
+                    <input type="radio" name="pay" defaultChecked style={{marginRight:6}}/>{t('cash')}
+                  </label>
+                  <label style={{cursor:'pointer',color:'var(--text-secondary)',fontSize:'0.88rem'}}>
+                    <input type="radio" name="pay" style={{marginRight:6}}/>{t('card')}
+                  </label>
                 </div>
               </div>
-              <button className="btn btn-primary" style={{alignSelf:'flex-start'}}>Confirm Walk-in Booking</button>
+              <button className="btn btn-primary" style={{alignSelf:'flex-start'}}>
+                {t('confirmWalkIn')}
+              </button>
             </div>
           </motion.div>
         )}

@@ -24,6 +24,7 @@ import AdminMoviesPage from './pages/AdminMoviesPage';
 import AdminHallsPage from './pages/AdminHallsPage';
 import AdminUsersPage from './pages/AdminUsersPage';
 import AIRecommendPage from './pages/AIRecommendPage';
+import AproposPage from './pages/AproposPage';
 import OffersPage from './pages/OffersPage';
 import './index.css';
 
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/feedback"            element={<FeedbackPage />} />
           <Route path="/ai-recommend"        element={<AIRecommendPage />} />
           <Route path="/offers"              element={<OffersPage />} />
+          <Route path="/apropos"             element={<AproposPage />} />
         </Route>
 
         {/* Auth — no main layout */}

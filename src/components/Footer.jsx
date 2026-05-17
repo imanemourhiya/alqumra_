@@ -5,6 +5,7 @@ import './Footer.css';
 
 export default function Footer() {
   const { lang, t, setLangDirect } = useLang();
+
   return (
     <footer className="footer">
       <div className="footer__body container">
@@ -30,6 +31,7 @@ export default function Footer() {
             <ul className="footer__links">
               <li><Link to="/movies">{t('nowShowingFooter')}</Link></li>
               <li><Link to="/movies?tab=coming-soon">{t('comingSoonFooter')}</Link></li>
+              <li><Link to="/apropos">{t('about')}</Link></li>
               <li><Link to="/cinemas">{t('ourCinemas')}</Link></li>
               <li><Link to="/ai-recommend">{t('aiPicks')}</Link></li>
             </ul>

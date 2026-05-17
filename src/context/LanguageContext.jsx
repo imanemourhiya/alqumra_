@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const translations = {
   fr: {
     // Navbar
-    home: 'Accueil', films: 'Films', cinemas: 'Cinémas', offers: 'Offres',
+    home: 'Accueil', films: 'Films', cinemas: 'Cinémas', offers: 'Offres', about: 'À propos',
     aiPick: '✦ Choix IA', signIn: 'Se connecter', join: 'Rejoindre',
     profile: 'Profil', myBookings: 'Mes réservations', favourites: 'Favoris',
     signOut: 'Se déconnecter', search: 'Rechercher',
@@ -121,7 +121,7 @@ const translations = {
   },
 
   en: {
-    home: 'Home', films: 'Films', cinemas: 'Cinemas', offers: 'Offers',
+    home: 'Home', films: 'Films', cinemas: 'Cinemas', offers: 'Offers', about: 'About',
     aiPick: '✦ AI Pick', signIn: 'Sign In', join: 'Join',
     profile: 'Profile', myBookings: 'My Bookings', favourites: 'Favourites',
     signOut: 'Sign Out', search: 'Search',
@@ -219,7 +219,7 @@ const translations = {
   },
 
   ar: {
-    home: 'الرئيسية', films: 'الأفلام', cinemas: 'دور السينما', offers: 'العروض',
+    home: 'الرئيسية', films: 'الأفلام', cinemas: 'دور السينما', offers: 'العروض', about: 'عن القُمرة',
     aiPick: '✦ اختيار الذكاء', signIn: 'تسجيل الدخول', join: 'انضم',
     profile: 'الملف الشخصي', myBookings: 'حجوزاتي', favourites: 'المفضلة',
     signOut: 'تسجيل الخروج', search: 'بحث',

@@ -24,6 +24,7 @@ export default function Navbar() {
     { to: '/cinemas', label: t('cinemas') },
     { to: '/offers', label: t('offers') },
     { to: '/ai-recommend', label: '✦ AI Pick' },
+    { to: '/apropos', label: t('about') }
   ];
 
   useEffect(() => {
@@ -108,7 +109,7 @@ export default function Navbar() {
                         <div className="pd-name">{user.name}</div>
                         <div className="pd-tier">
                           <span className={`role-badge role-badge--${user.role}`}>{user.role}</span>
-                          {user.loyaltyPoints && ` · ${user.loyaltyPoints} pts`}
+                          {user.role === 'customer' && user.loyaltyPoints && ` · ${user.loyaltyPoints} pts`}
                         </div>
                       </div>
                     </div>
@@ -119,9 +120,13 @@ export default function Navbar() {
                     {user.role === 'staff' && (
                       <Link to="/staff" className="pd-item pd-item--staff" onClick={() => setProfileOpen(false)}>🎫 Staff Dashboard</Link>
                     )}
-                    <Link to="/profile" className="pd-item" onClick={() => setProfileOpen(false)}><FiUser /> {t('profile')}</Link>
+                    
+                    {user.role === 'customer' && (<>                
                     <Link to="/history" className="pd-item" onClick={() => setProfileOpen(false)}><FiClock /> {t('myBookings')}</Link>
                     <Link to="/favorites" className="pd-item" onClick={() => setProfileOpen(false)}><FiHeart /> {t('favourites')}</Link>
+                    <Link to="/profile" className="pd-item" onClick={() => setProfileOpen(false)}><FiUser /> {t('profile')}</Link>
+                      </>
+                )}
                     <div className="pd-divider" />
                     <button className="pd-item pd-item--danger" onClick={() => { logout(); setProfileOpen(false); }}>
                       <FiLogOut /> {t('signOut')}
@@ -212,7 +217,9 @@ export default function Navbar() {
                 {user.role === 'admin' && <Link to="/admin" className="mobile-link" onClick={() => setMenuOpen(false)}>⚙ Admin Panel</Link>}
                 {user.role === 'staff' && <Link to="/staff" className="mobile-link" onClick={() => setMenuOpen(false)}>🎫 Staff Dashboard</Link>}
                 <Link to="/profile" className="mobile-link" onClick={() => setMenuOpen(false)}>{t('profile')}</Link>
-                <Link to="/history" className="mobile-link" onClick={() => setMenuOpen(false)}>{t('myBookings')}</Link>
+                {user.role === 'customer' && (
+  <Link to="/history" className="mobile-link" onClick={() => setMenuOpen(false)}>{t('myBookings')}</Link>
+)}
                 <button className="mobile-link mobile-link--danger" onClick={() => { logout(); setMenuOpen(false); }}>{t('signOut')}</button>
               </>
             ) : (
